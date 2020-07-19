@@ -20,11 +20,10 @@
 
 #include "Poco/MongoDB/MongoDB.h"
 #include "Poco/BinaryWriter.h"
-
+#include "Constraints.h"
 
 namespace Poco {
 namespace MongoDB {
-
 
 class MongoDB_API BSONWriter
 	/// Class for writing BSON using a Poco::BinaryWriter.
@@ -48,6 +47,22 @@ public:
 	{
 		_writer << t;
 	}
+
+	template<typename T>
+	requires constraints::Vectorable<T>
+	void write(T& t);
+
+	template<typename T>
+	requires constraints::Mapable<T>
+	void write(T& t);
+
+	template<typename T>
+	requires constraints::Pointerable<T>
+	void write(T& t);
+
+	template<typename T>
+	requires constraints::Optionable<T>
+	void write(T& t);
 
 	void writeCString(const std::string& value);
 		/// Writes a cstring to the writer. A cstring is a string

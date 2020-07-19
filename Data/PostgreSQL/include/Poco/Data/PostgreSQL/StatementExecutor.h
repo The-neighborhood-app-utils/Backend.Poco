@@ -22,7 +22,7 @@
 #include "Poco/Data/PostgreSQL/PostgreSQLTypes.h"
 #include "Poco/Data/PostgreSQL/SessionHandle.h"
 #include "Poco/Data/MetaColumn.h"
-#include <libpq-fe.h>
+#include <postgresql/libpq-fe.h>
 #include <string>
 #include <vector>
 

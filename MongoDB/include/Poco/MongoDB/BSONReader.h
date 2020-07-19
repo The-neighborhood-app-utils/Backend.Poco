@@ -20,10 +20,11 @@
 
 #include "Poco/MongoDB/MongoDB.h"
 #include "Poco/BinaryReader.h"
-
+#include "Constraints.h"
 
 namespace Poco {
 namespace MongoDB {
+
 
 
 class MongoDB_API BSONReader
@@ -48,6 +49,22 @@ public:
 	{
 		_reader >> t;
 	}
+
+	template<typename T>
+	requires constraints::Vectorable<T>
+	void read(T& t);
+
+	template<typename T>
+	requires constraints::Mapable<T>
+	void read(T& t);
+
+	template<typename T>
+	requires constraints::Pointerable<T>
+	void read(T& t);
+
+	template<typename T>
+	requires constraints::Optionable<T>
+	void read(T& t);
 
 	std::string readCString();
 		/// Reads a cstring from the reader.
